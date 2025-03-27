@@ -1,30 +1,29 @@
-# openfortivpn-haproxy
+# openfortivpn-socat
 
 This docker image proxies traffic across a Fortinet VPN to remote host using
 [openfortivpn](https://github.com/adrienverge/openfortivpn)
-and ~~[haproxy](https://www.haproxy.org/)~~ 
-[socat](http://www.dest-unreach.org/socat/).
+and [socat](http://www.dest-unreach.org/socat/).
 
 ## Create docker image
 
 1. Clone this repository
 
     ```sh
-    git clone https://github.com/jeffre/openfortivpn-haproxy
+    git clone https://github.com/.../openfortivpn-socat
     ```
 
 2. Build the image
 
     ```sh
-    docker build ./openfortivpn-haproxy \
-        -t "jeffre/openfortivpn-haproxy:latest"
+    docker build ./openfortivpn-socat \
+        -t "openfortivpn-socat:latest"
     ```
 
     Alternatively, you may specify the openfortivpn version using `--build-arg`
 
     ```sh
-    docker build ./openfortivpn-haproxy \
-        -t "jeffre/openfortivpn-haproxy:v1.17.1" \
+    docker build ./openfortivpn-socat \
+        -t "openfortivpn-socat:v1.17.1" \
         --build-arg OPENFORTIVPN_VERSION=v1.17.1
     ```
 
@@ -54,7 +53,7 @@ image, as a mounted config file, or a combination of both. For details about
 openfortivpn configuration run
 
 ```sh
-docker run --rm jeffre/openfortivpn-haproxy -h
+docker run --rm openfortivpn-socat -h
 ```
 
 ## Examples
@@ -67,7 +66,7 @@ docker run --rm -it \
     --cap-add=NET_ADMIN \
     -p 127.0.0.1:3389:3389 \
     -e PORT_FORWARD="3389:10.0.0.1:3389" \
-    jeffre/openfortivpn-haproxy:latest \
+    openfortivpn-socat:latest \
     fortinet.example.com:8443 \
     --username=foo \
     --password=bar \
@@ -86,7 +85,7 @@ docker run --rm -it \
     -e PORT_FORWARD1="1111:10.0.0.1:3389" \
     -p 127.0.0.1:2222:2222 \
     -e PORT_FORWARD2="2222:10.0.0.2:22" \
-    jeffre/openfortivpn-haproxy:latest \
+    openfortivpn-socat:latest \
     fortinet.example.com:8443 \
     --username=foo \
     --password=bar \
@@ -114,7 +113,7 @@ docker run --rm -it \
     -p "1111:1111" \
     -e PORT_FORWARD="1111:10.0.0.1:3389" \
     -v "$(pwd)/config:/etc/openfortivpn/config" \
-    jeffre/openfortivpn-haproxy:latest \
+    openfortivpn-socat:latest \
     --otp=123456
 ```
 
@@ -129,6 +128,6 @@ docker run --rm -it \
     --privileged \
     -p "1111:1111" \
     -e PORT_FORWARD="3389:10.0.0.1:3389" \
-    jeffre/openfortivpn-haproxy:latest \
+    openfortivpn-socat:latest \
     fortinet.example.com:8443
 ```
